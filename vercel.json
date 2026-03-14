@@ -1,0 +1,24 @@
+{
+  "name": "robux-logger",
+  "version": 2,
+  "builds": [
+    {
+      "src": "*.html",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/",
+      "dest": "/index.html"
+    },
+    {
+      "src": "/dashboard",
+      "dest": "/dashboard.html"
+    },
+    {
+      "src": "/admin",
+      "dest": "/dashboard.html"
+    }
+  ]
+}
