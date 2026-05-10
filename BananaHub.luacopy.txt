@@ -442,18 +442,18 @@ Attack.Kill = function(model, Succes)
             _tp(model.HumanoidRootPart.CFrame * CFrame.new(0,30,0) * CFrame.Angles(0,math.rad(180),0))
         end
         
-        if RandomCFrame then 
-            wait(.5)
-            _tp(model.HumanoidRootPart.CFrame * CFrame.new(0, 30, 25)) 
-            wait(.5)
-            _tp(model.HumanoidRootPart.CFrame * CFrame.new(25, 30, 0)) 
-            wait(.5)
-            _tp(model.HumanoidRootPart.CFrame * CFrame.new(-25, 30 ,0)) 
-            wait(.5)
-            _tp(model.HumanoidRootPart.CFrame * CFrame.new(0, 30, 25)) 
-            wait(.5)
-            _tp(model.HumanoidRootPart.CFrame * CFrame.new(-25, 30, 0))
-        end
+ if RandomCFrame then 
+    wait(0.05)
+    _tp(model.HumanoidRootPart.CFrame * CFrame.new(0, 30, 25)) 
+    wait(0.05)
+    _tp(model.HumanoidRootPart.CFrame * CFrame.new(25, 30, 0)) 
+    wait(0.05)
+    _tp(model.HumanoidRootPart.CFrame * CFrame.new(-25, 30 ,0)) 
+    wait(0.05)
+    _tp(model.HumanoidRootPart.CFrame * CFrame.new(0, 30, 25)) 
+    wait(0.05)
+    _tp(model.HumanoidRootPart.CFrame * CFrame.new(-25, 30, 0))
+      end
     end
 end
 
@@ -2712,7 +2712,7 @@ wait(1)
 
 Library:Notify({
     Title = "Ui Library",
-    Description = "The UI automatically hides once executed.\nPress the button at the bottom-left of the screen to show the GUI.",
+    Description = "The UI automatically hides once executed.Axver Hub press the button at the bottom-left of the screen to show the GUI.",
     Duration = 3
 })
 
