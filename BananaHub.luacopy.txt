@@ -2355,17 +2355,17 @@ end
 -- Main Loop Initialization
 local function StartMainLoops()
     task.spawn(function()
-    while true do  -- Loop không delay, nhanh nhất có thể
-        FastAttackModule.ExecuteFastAttack()
-        task.wait() -- 1 frame delay
-    end
-end)
+        while true do
+            FastAttackModule.ExecuteFastAttack()
+            task.wait()
+        end
+    end)
 
     RunService.Heartbeat:Connect(function()
-    pcall(HitRegistrationModule.Execute)
-end)
-RunService.RenderStepped:Connect(function()
-    pcall(HitRegistrationModule.Execute)  -- Thêm 1 kết nối nữa để đánh nhanh gấp đôi
+        pcall(HitRegistrationModule.Execute)
+    end)
+    RunService.RenderStepped:Connect(function()
+        pcall(HitRegistrationModule.Execute)
     end)
 end
 
@@ -3215,7 +3215,7 @@ function UpdateServerTime()
 end
 
 task.spawn(function()
-    while task.wait(1) do
+    while task.wait(0.03) do
         pcall(UpdateServerTime)
     end
 end)
